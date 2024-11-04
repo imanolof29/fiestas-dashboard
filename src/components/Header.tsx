@@ -5,15 +5,12 @@ const Header = () => {
     return (
         <Navbar bg="dark" variant="dark" expand="lg">
             <Container>
-                {/* Logotipo o nombre de la aplicación */}
                 <Navbar.Brand as={Link} to="/">
-                    MiAplicación
+                    Fiestas
                 </Navbar.Brand>
 
-                {/* Botón de navegación responsive */}
                 <Navbar.Toggle aria-controls="navbar-nav" />
 
-                {/* Elementos de navegación */}
                 <Navbar.Collapse id="navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="/home">

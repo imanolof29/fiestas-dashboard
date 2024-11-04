@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import { SignIn } from "../pages/auth/signin/SignIn"
 import { ProtectedRoute } from "./ProtectedRoute"
+import { ListEvents } from "../pages/events/list/ListEvents"
 
 const Routes = () => {
 
@@ -11,7 +12,7 @@ const Routes = () => {
             children: [
                 {
                     path: "",
-                    element: <p>Home</p>
+                    element: <ListEvents />
                 }
             ]
         }
