@@ -1,11 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import { useAuth } from "../providers/AuthProvider"
 import { SignIn } from "../pages/auth/signin/SignIn"
 import { ProtectedRoute } from "./ProtectedRoute"
 
 const Routes = () => {
-
-    const { token } = useAuth()
 
     const adminRoutes = [
         {
