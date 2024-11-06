@@ -40,7 +40,7 @@ export const CreateEvent = () => {
         setLoading(true);
         try {
             await createEvent(values);
-            navigate('/events');
+            navigate(-1);
         } catch (err) {
             setError('Algo fue mal al crear el evento.');
         } finally {

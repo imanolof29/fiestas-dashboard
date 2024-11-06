@@ -3,3 +3,7 @@ export interface CategoryDto {
     name: string
     created: Date
 }
+
+export interface CreateCategoryDto {
+    name: string
+}

@@ -4,6 +4,9 @@ import { ProtectedRoute } from "./ProtectedRoute"
 import { ListEvents } from "../pages/events/list/ListEvents"
 import { UpdateEvent } from "../pages/events/update/UpdateEvent"
 import { CreateEvent } from "../pages/events/create/CreateEvent"
+import { ListCategories } from "../pages/categories/list/ListCategories"
+import { UpdateCategory } from "../pages/categories/update/UpdateCategory"
+import { CreateCategory } from "../pages/categories/create/CreateCategory"
 
 const Routes = () => {
 
@@ -23,6 +26,18 @@ const Routes = () => {
                 {
                     path: "/create",
                     element: <CreateEvent />
+                },
+                {
+                    path: "/categories",
+                    element: <ListCategories />
+                },
+                {
+                    path: "/categories/:id",
+                    element: <UpdateCategory />
+                },
+                {
+                    path: "/categories/create",
+                    element: <CreateCategory />
                 }
             ]
         }
