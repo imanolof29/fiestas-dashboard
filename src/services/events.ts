@@ -1,20 +1,57 @@
 import axios from "axios";
-import { Event } from "../types/event";
+import { CreateEventDto, EventDto } from "../types/event";
 
-export async function listEvents(): Promise<Event[]> {
+export async function listEvents(): Promise<EventDto[]> {
     try {
-        const response = await axios.get<Event[]>("http://192.168.68.110:3000/events/find")
+        const response = await axios.get<EventDto[]>("http://192.168.68.110:3000/events/find")
         return response.data
     } catch (e) {
         throw e
     }
 }
 
-export async function deleteEvent(id: string): Promise<void> {
+export const createEvent = async (event: CreateEventDto): Promise<void> => {
     try {
-        const response = await axios.delete(`http://192.168.68.110:3000/events/delete/${id}`)
+        const response = await axios.post('http://192.168.68.110:3000/events/create', event);
+        return response.data;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            throw new Error(error.response?.data?.message || 'Error al crear el evento');
+        } else {
+            throw new Error('Ocurrió un error desconocido');
+        }
+    }
+};
+
+export async function getEventById(id: string): Promise<EventDto> {
+    try {
+        const response = await axios.get<EventDto>(`http://192.168.68.110:3000/events/pick/${id}`)
         return response.data
     } catch (e) {
+        throw e
+    }
+}
+
+export async function updateEvent(event: EventDto): Promise<void> {
+    try {
+        await axios.put(`http://192.168.68.110:3000/events/update/${event.id}`, {
+            name: event.name,
+            description: event.description,
+            price: event.price,
+            ticketLimit: event.ticketLimit,
+            categoryIds: event.categoryIds
+        })
+    } catch (e) {
+        throw e
+    }
+}
+
+
+export async function deleteEvent(id: string): Promise<void> {
+    try {
+        await axios.delete(`http://192.168.68.110:3000/events/delete/${id}`)
+    } catch (e) {
+        console.log(e)
         throw e
     }
 }
