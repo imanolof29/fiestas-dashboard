@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { CategoryDto } from "../../../types/category";
-import { Alert, Button, Modal, Row, Table } from "react-bootstrap";
+import { Alert, Button, Col, Modal, Row, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { deleteCategory, listCategories } from "../../../services/categories";
 
@@ -53,13 +53,17 @@ export const ListCategories = () => {
 
     return (
         <>
-            <Row>
-                <h2>Listado de Eventos</h2>
-                <Button onClick={() => {
-                    navigate("/categories/create")
-                }}>
-                    Crear
-                </Button>
+            <Row className="mb-3">
+                <Col xs={8}>
+                    <h2>Listado de Categorias</h2>
+                </Col>
+                <Col xs={4} className="text-end">
+                    <Button onClick={() => {
+                        navigate("/categories/create")
+                    }}>
+                        Crear
+                    </Button>
+                </Col>
             </Row>
             <Table striped bordered hover>
                 <thead>

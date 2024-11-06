@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { deleteEvent, listEvents } from "../../../services/events";
-import { Alert, Button, Modal, Row, Table } from "react-bootstrap";
+import { Alert, Button, Col, Modal, Row, Table } from "react-bootstrap";
 import { EventDto } from "../../../types/event";
 import { useNavigate } from "react-router-dom";
 
@@ -54,13 +54,17 @@ export const ListEvents = () => {
 
     return (
         <>
-            <Row>
-                <h2>Listado de Eventos</h2>
-                <Button onClick={() => {
-                    navigate("/create")
-                }}>
-                    Crear
-                </Button>
+            <Row className="mb-3">
+                <Col xs={8}>
+                    <h2>Listado de Eventos</h2>
+                </Col>
+                <Col xs={4} className="text-end">
+                    <Button onClick={() => {
+                        navigate("/create")
+                    }}>
+                        Crear
+                    </Button>
+                </Col>
             </Row>
             <Table striped bordered hover>
                 <thead>
