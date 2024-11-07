@@ -42,7 +42,7 @@ export const ListUsers = () => {
                 </Col>
                 <Col xs={4} className="text-end">
                     <Button onClick={() => {
-                        navigate("/create")
+                        navigate("/users/create")
                     }}>
                         Crear
                     </Button>

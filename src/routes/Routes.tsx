@@ -8,6 +8,7 @@ import { ListCategories } from "../pages/categories/list/ListCategories"
 import { UpdateCategory } from "../pages/categories/update/UpdateCategory"
 import { CreateCategory } from "../pages/categories/create/CreateCategory"
 import { ListUsers } from "../pages/users/list/ListUsers"
+import { CreateUser } from "../pages/users/create/CreateUser"
 
 const Routes = () => {
 
@@ -43,6 +44,10 @@ const Routes = () => {
                 {
                     path: "/users",
                     element: <ListUsers />
+                },
+                {
+                    path: "/users/create",
+                    element: <CreateUser />
                 }
             ]
         }

@@ -5,6 +5,7 @@ export interface UserDto {
     username: string
     email: string
     created: Date
+    role: UserRole
 }
 
 export interface CreateUserDto {
@@ -13,4 +14,7 @@ export interface CreateUserDto {
     username: string
     email: string
     password: string
+    role: UserRole
 }
+
+export type UserRole = 'USER' | 'ORGANIZER' | 'ADMIN'
