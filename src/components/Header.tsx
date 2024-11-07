@@ -16,6 +16,9 @@ const Header = () => {
                         <Nav.Link as={Link} to="/categories">
                             Categorias
                         </Nav.Link>
+                        <Nav.Link as={Link} to="/users">
+                            Usuarios
+                        </Nav.Link>
                     </Nav>
 
                     <Nav>
