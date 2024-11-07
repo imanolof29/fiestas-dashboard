@@ -19,6 +19,18 @@ export async function getUserById(id: string): Promise<UserDto> {
     }
 }
 
+export async function updateUser(user: UserDto): Promise<void> {
+    try {
+        await axios.put(`http://192.168.68.110:3000/users/update/${user.id}`, {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            username: user.username,
+        })
+    } catch (e) {
+        throw e
+    }
+}
+
 export async function createUser(user: CreateUserDto): Promise<void> {
     try {
         await axios.post<CreateUserDto>('http://192.168.68.110:3000/users/create', user)
