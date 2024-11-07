@@ -1,7 +1,18 @@
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../providers/AuthProvider";
 
 const Header = () => {
+
+    const { signOut } = useAuth()
+
+    const navigate = useNavigate()
+
+    const handleSignOut = () => {
+        signOut()
+        navigate('/signIn', { replace: true })
+    }
+
     return (
         <Navbar bg="dark" variant="dark" expand="lg">
             <Container>
@@ -22,7 +33,7 @@ const Header = () => {
                     </Nav>
 
                     <Nav>
-                        <Button variant="outline-light">
+                        <Button variant="outline-light" onClick={handleSignOut}>
                             Cerrar sesion
                         </Button>
                     </Nav>

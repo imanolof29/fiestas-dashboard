@@ -4,6 +4,7 @@ import { createContext, ReactNode, useContext, useEffect, useMemo, useState } fr
 interface AuthContextType {
     token: string | null;
     setToken: (newToken: string) => void;
+    signOut: () => void
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -29,10 +30,15 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         }
     }, [token]);
 
+    function signOut() {
+        localStorage.removeItem('token')
+    }
+
     const contextValue = useMemo(
         () => ({
             token,
             setToken,
+            signOut
         }),
         [token]
     );
