@@ -1,12 +1,18 @@
+export interface Position {
+    type: string;
+    coordinates: number[];
+}
+
 export interface EventDto {
-    id: string
-    name: string
-    description: string
-    created: Date
-    price?: number
-    ticketLimit?: number
-    ticketSold: number
-    categoryIds: string[]
+    id: string;
+    name: string;
+    description: string;
+    created: Date;
+    price?: number;
+    ticketLimit?: number;
+    ticketsSold: number;
+    categoryIds: string[];
+    position: Position;
 }
 
 export interface CreateEventDto {
