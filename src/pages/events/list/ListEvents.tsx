@@ -53,7 +53,7 @@ export const ListEvents = () => {
                     <>
                         <td>{event.name}</td>
                         <td>{new Date(event.created).toLocaleDateString()}</td>
-                        <td>{event.price ? `$${event.price}` : 'Gratuito'}</td>
+                        <td>{event.price ? `${event.price}€` : 'Gratuito'}</td>
                         <td>{event.ticketLimit ?? 0}</td>
                         <td>
                             <Button

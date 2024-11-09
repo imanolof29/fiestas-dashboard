@@ -1,14 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { CategoryDto } from "../../../types/category";
-import { Alert, Button, Col, Modal, Row, Table } from "react-bootstrap";
+import { Button, Col, Modal, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { deleteCategory, listCategories } from "../../../services/categories";
+import { PaginationDto } from "../../../types/pagination";
+import TableComponent from "../../../components/table/Table";
 
 export const ListCategories = () => {
 
-    const [categories, setCategories] = useState<CategoryDto[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
     const [categoryToDelete, setCategoryToDelete] = useState<CategoryDto | null>(null);
 
@@ -29,26 +28,8 @@ export const ListCategories = () => {
         setCategoryToDelete(null);
     };
 
-    useEffect(() => {
-        const loadCategories = async () => {
-            try {
-                const categoriesData = await listCategories()
-                setCategories(categoriesData)
-            } catch (err) {
-                setError('Error al cargar categorias')
-            } finally {
-                setLoading(false)
-            }
-        }
-        loadCategories()
-    }, [])
-
-    if (loading) {
-        return <p>Cargando categorias...</p>;
-    }
-
-    if (error) {
-        return <Alert variant="danger">{error}</Alert>
+    const getCategories = async (page: number, limit: number): Promise<PaginationDto<CategoryDto>> => {
+        return listCategories(page, limit)
     }
 
     return (
@@ -65,30 +46,31 @@ export const ListCategories = () => {
                     </Button>
                 </Col>
             </Row>
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Fecha de Creación</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {categories.map((category) => (
-                        <tr key={category.id}>
-                            <td>{category.name}</td>
-                            <td>{new Date(category.created).toLocaleDateString()}</td>
-                            <td>
-                                <Button variant="warning" className="me-2" onClick={() => navigate(`/categories/${category.id}`)}>
-                                    Editar
-                                </Button>
-                                <Button variant="danger" onClick={() => handleShowDeleteModal(category)}>
-                                    Borrar
-                                </Button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </Table>
+            <TableComponent<CategoryDto>
+                columns={['Nombre', 'Fecha de creación']}
+                fetchData={getCategories}
+                renderRow={(category) => (
+                    <>
+                        <td>{category.name}</td>
+                        <td>{new Date(category.created).toLocaleDateString()}</td>
+                        <td>
+                            <Button
+                                variant="warning"
+                                className="me-2"
+                                onClick={() => navigate(`/${category.id}`)}
+                            >
+                                Editar
+                            </Button>
+                            <Button
+                                variant="danger"
+                                onClick={() => handleShowDeleteModal(category)}
+                            >
+                                Borrar
+                            </Button>
+                        </td>
+                    </>
+                )}
+            />
             <Modal show={showDeleteModal} onHide={handleCloseDeleteModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>Confirmar Borrado</Modal.Title>

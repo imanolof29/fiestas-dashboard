@@ -1,9 +1,10 @@
 import axios from "axios";
 import { CreateUserDto, UserDto } from "../types/user";
+import { PaginationDto } from "../types/pagination";
 
-export async function listUsers(): Promise<UserDto[]> {
+export async function listUsers(page: number, limit: number): Promise<PaginationDto<UserDto>> {
     try {
-        const response = await axios.get<UserDto[]>("http://192.168.68.110:3000/users/find")
+        const response = await axios.get<PaginationDto<UserDto>>(`http://192.168.68.110:3000/users/find?page=${page}&limit=${limit}`)
         return response.data
     } catch (e) {
         throw e

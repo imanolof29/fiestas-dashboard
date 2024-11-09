@@ -17,8 +17,8 @@ export const CreateEvent = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await listCategories()
-                setCategories(response);
+                const response = await listCategories(0, 100)
+                setCategories(response.data);
             } catch (err) {
                 setError('Error al cargar las categorías');
             }

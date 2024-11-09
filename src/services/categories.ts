@@ -1,9 +1,10 @@
 import axios from "axios";
 import { CategoryDto, CreateCategoryDto } from "../types/category";
+import { PaginationDto } from "../types/pagination";
 
-export async function listCategories(): Promise<CategoryDto[]> {
+export async function listCategories(page: number, limit: number): Promise<PaginationDto<CategoryDto>> {
     try {
-        const response = await axios.get<CategoryDto[]>("http://192.168.68.110:3000/categories/find")
+        const response = await axios.get<PaginationDto<CategoryDto>>(`http://192.168.68.110:3000/categories/find?page=${page}&limit=${limit}`)
         return response.data
     } catch (e) {
         throw e
