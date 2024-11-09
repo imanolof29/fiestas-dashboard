@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Formik, Form as FormikForm, Field, ErrorMessage } from 'formik';
 import { EventDto } from '../../../types/event';
 import * as Yup from 'yup';
-import { Form, Button, Spinner, Alert } from 'react-bootstrap';
+import { Form, Button, Spinner, Alert, Row, Col } from 'react-bootstrap';
 import { getEventById, updateEvent } from '../../../services/events';
 import MapComponent from '../../../components/map/Map';
 
@@ -83,36 +83,43 @@ export const UpdateEvent = () => {
                                     <ErrorMessage name="name" component="div" className="text-danger" />
                                 </Form.Group>
 
+                                <Row>
+                                    <Col md={6}>
+                                        <Form.Group controlId="formPrice" className="mb-3">
+                                            <Form.Label>Precio</Form.Label>
+                                            <Field
+                                                as={Form.Control}
+                                                type="number"
+                                                name="price"
+                                                placeholder="Ingresa el precio del evento"
+                                            />
+                                            <ErrorMessage name="price" component="div" className="text-danger" />
+                                        </Form.Group>
+                                    </Col>
+                                    <Col md={6}>
+                                        <Form.Group controlId="formTicketLimit" className="mb-3">
+                                            <Form.Label>Límite de Tickets</Form.Label>
+                                            <Field
+                                                as={Form.Control}
+                                                type="number"
+                                                name="ticketLimit"
+                                                placeholder="Ingresa el límite de tickets"
+                                            />
+                                            <ErrorMessage name="ticketLimit" component="div" className="text-danger" />
+                                        </Form.Group>
+                                    </Col>
+                                </Row>
+
                                 <Form.Group controlId="formDescription" className="mb-3">
                                     <Form.Label>Descripción</Form.Label>
                                     <Field
-                                        as={Form.Control}
+                                        as="textarea"
                                         name="description"
-                                        placeholder="Ingresa la descripción del evento"
+                                        placeholder="Ingresa la descripción de la ubicación"
+                                        className="form-control"
+                                        rows={6}
                                     />
                                     <ErrorMessage name="description" component="div" className="text-danger" />
-                                </Form.Group>
-
-                                <Form.Group controlId="formPrice" className="mb-3">
-                                    <Form.Label>Precio</Form.Label>
-                                    <Field
-                                        as={Form.Control}
-                                        type="number"
-                                        name="price"
-                                        placeholder="Ingresa el precio del evento"
-                                    />
-                                    <ErrorMessage name="price" component="div" className="text-danger" />
-                                </Form.Group>
-
-                                <Form.Group controlId="formTicketLimit" className="mb-3">
-                                    <Form.Label>Límite de Tickets</Form.Label>
-                                    <Field
-                                        as={Form.Control}
-                                        type="number"
-                                        name="ticketLimit"
-                                        placeholder="Ingresa el límite de tickets"
-                                    />
-                                    <ErrorMessage name="ticketLimit" component="div" className="text-danger" />
                                 </Form.Group>
 
                                 <Button variant="primary" type="submit" disabled={isSubmitting}>
