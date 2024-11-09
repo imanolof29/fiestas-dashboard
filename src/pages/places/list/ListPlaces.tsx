@@ -28,11 +28,22 @@ const ListPlaces = () => {
                 </Col>
             </Row>
             <TableComponent<PlaceDto>
-                columns={['Nombre']}
+                columns={['Nombre', 'Ciudad', 'Dirección']}
                 fetchData={getPlaces}
                 renderRow={(place) => (
                     <>
                         <td>{place.name}</td>
+                        <td>{place.city}</td>
+                        <td>
+                            {[
+                                place.street,
+                                place.housenumber,
+                                place.postcode
+                            ]
+                                .filter(Boolean)
+                                .join(', ')
+                            }
+                        </td>
                     </>
                 )}
             />

@@ -1,7 +1,4 @@
-export interface Position {
-    type: string;
-    coordinates: number[];
-}
+import { Position } from "./position";
 
 export interface EventDto {
     id: string;
