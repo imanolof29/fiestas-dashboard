@@ -1,14 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { deleteEvent, listEvents } from "../../../services/events";
-import { Alert, Button, Col, Modal, Row, Table } from "react-bootstrap";
+import { Button, Col, Modal, Row } from "react-bootstrap";
 import { EventDto } from "../../../types/event";
 import { useNavigate } from "react-router-dom";
+import TableComponent from "../../../components/table/Table";
+import { PaginationDto } from "../../../types/pagination";
 
 export const ListEvents = () => {
 
-    const [events, setEvents] = useState<EventDto[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
     const [eventToDelete, setEventToDelete] = useState<EventDto | null>(null);
 
@@ -29,27 +28,8 @@ export const ListEvents = () => {
         setEventToDelete(null);
     };
 
-    useEffect(() => {
-        const loadEvents = async () => {
-            try {
-                const eventsData = await listEvents();
-                setEvents(eventsData);
-            } catch (err) {
-                setError('Error al cargar los eventos');
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        loadEvents();
-    }, []);
-
-    if (loading) {
-        return <p>Cargando eventos...</p>;
-    }
-
-    if (error) {
-        return <Alert variant="danger">{error}</Alert>
+    const getEvents = async (page: number, limit: number): Promise<PaginationDto<EventDto>> => {
+        return listEvents(page, limit)
     }
 
     return (
@@ -66,35 +46,33 @@ export const ListEvents = () => {
                     </Button>
                 </Col>
             </Row>
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Fecha de Creación</th>
-                        <th>Precio</th>
-                        <th>Boletos Vendidos</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {events.map((event) => (
-                        <tr key={event.id}>
-                            <td>{event.name}</td>
-                            <td>{new Date(event.created).toLocaleDateString()}</td>
-                            <td>{event.price ? `$${event.price}` : 'Gratuito'}</td>
-                            <td>{event.ticketSold}</td>
-                            <td>
-                                <Button variant="warning" className="me-2" onClick={() => navigate(`/${event.id}`)}>
-                                    Editar
-                                </Button>
-                                <Button variant="danger" onClick={() => handleShowDeleteModal(event)}>
-                                    Borrar
-                                </Button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </Table>
+            <TableComponent<EventDto>
+                columns={['Nombre', 'Fecha de creación', 'Precio', 'Ventas', 'Acciones']}
+                fetchData={getEvents}
+                renderRow={(event) => (
+                    <>
+                        <td>{event.name}</td>
+                        <td>{new Date(event.created).toLocaleDateString()}</td>
+                        <td>{event.price ? `$${event.price}` : 'Gratuito'}</td>
+                        <td>{event.ticketLimit ?? 0}</td>
+                        <td>
+                            <Button
+                                variant="warning"
+                                className="me-2"
+                                onClick={() => navigate(`/${event.id}`)}
+                            >
+                                Editar
+                            </Button>
+                            <Button
+                                variant="danger"
+                                onClick={() => handleShowDeleteModal(event)}
+                            >
+                                Borrar
+                            </Button>
+                        </td>
+                    </>
+                )}
+            />
             <Modal show={showDeleteModal} onHide={handleCloseDeleteModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>Confirmar Borrado</Modal.Title>

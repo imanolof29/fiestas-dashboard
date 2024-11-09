@@ -1,9 +1,10 @@
 import axios from "axios";
 import { CreateEventDto, EventDto } from "../types/event";
+import { PaginationDto } from "../types/pagination";
 
-export async function listEvents(): Promise<EventDto[]> {
+export async function listEvents(page: number, limit: number): Promise<PaginationDto<EventDto>> {
     try {
-        const response = await axios.get<EventDto[]>("http://192.168.68.110:3000/events/find")
+        const response = await axios.get<PaginationDto<EventDto>>(`http://192.168.68.110:3000/events/find?page=${page}&limit=${limit}`)
         return response.data
     } catch (e) {
         throw e
