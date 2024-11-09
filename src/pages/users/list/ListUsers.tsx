@@ -40,7 +40,7 @@ export const ListUsers = () => {
                             <Button
                                 variant="warning"
                                 className="me-2"
-                                onClick={() => navigate(`/${user.id}`)}
+                                onClick={() => navigate(`/users/${user.id}`)}
                             >
                                 Editar
                             </Button>
