@@ -33,6 +33,9 @@ const Header = () => {
                         <Nav.Link as={Link} to="/users">
                             Usuarios
                         </Nav.Link>
+                        <Nav.Link as={Link} to="/places">
+                            Ubicaciones
+                        </Nav.Link>
                     </Nav>
 
                     <Nav>
