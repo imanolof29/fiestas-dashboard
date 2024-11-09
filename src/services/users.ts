@@ -47,3 +47,17 @@ export async function deleteUser(id: string): Promise<void> {
         throw e
     }
 }
+
+export async function uploadProfileImage(file: File): Promise<void> {
+    const formData = new FormData()
+    formData.append('file', file)
+    try {
+        await axios.post('http://192.168.68.110:3000/users/profile-picture', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+    } catch (e) {
+        throw e
+    }
+}

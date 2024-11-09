@@ -11,6 +11,7 @@ import { ListUsers } from "../pages/users/list/ListUsers"
 import { CreateUser } from "../pages/users/create/CreateUser"
 import { UpdateUser } from "../pages/users/update/UpdateUser"
 import Dashboard from "../pages/dashboard/Dashboard"
+import Profile from "../pages/profile/Profile"
 
 const Routes = () => {
 
@@ -58,6 +59,10 @@ const Routes = () => {
                 {
                     path: "/users/:id",
                     element: <UpdateUser />
+                },
+                {
+                    path: "/profile",
+                    element: <Profile />
                 }
             ]
         }
