@@ -40,7 +40,7 @@ export const ListEvents = () => {
                 </Col>
                 <Col xs={4} className="text-end">
                     <Button onClick={() => {
-                        navigate("/create")
+                        navigate("/events/create")
                     }}>
                         Crear
                     </Button>
@@ -59,7 +59,7 @@ export const ListEvents = () => {
                             <Button
                                 variant="warning"
                                 className="me-2"
-                                onClick={() => navigate(`/${event.id}`)}
+                                onClick={() => navigate(`/events/${event.id}`)}
                             >
                                 Editar
                             </Button>

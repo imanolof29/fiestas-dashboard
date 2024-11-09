@@ -10,6 +10,7 @@ import { CreateCategory } from "../pages/categories/create/CreateCategory"
 import { ListUsers } from "../pages/users/list/ListUsers"
 import { CreateUser } from "../pages/users/create/CreateUser"
 import { UpdateUser } from "../pages/users/update/UpdateUser"
+import Dashboard from "../pages/dashboard/Dashboard"
 
 const Routes = () => {
 
@@ -20,14 +21,18 @@ const Routes = () => {
             children: [
                 {
                     path: "",
+                    element: <Dashboard />
+                },
+                {
+                    path: "/events",
                     element: <ListEvents />
                 },
                 {
-                    path: "/:id",
+                    path: "/events/:id",
                     element: <UpdateEvent />
                 },
                 {
-                    path: "/create",
+                    path: "/events/create",
                     element: <CreateEvent />
                 },
                 {
