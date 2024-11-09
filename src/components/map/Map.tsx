@@ -14,7 +14,7 @@ const MapComponent = (properties: MapProperties) => {
     useEffect(() => {
         if (!mapRef) return
         mapRef.current?.flyTo({
-            center: [properties.longitude, properties.latitude],
+            center: [properties.coordinates[0].latitude, properties.coordinates[0].longitude],
             essential: true,
             animate: false
         })
@@ -28,10 +28,12 @@ const MapComponent = (properties: MapProperties) => {
                 latitude: 40.4165,
                 zoom: 5
             }}
-            style={{ height: 400 }}
+            style={properties.style ?? { height: 400 }}
             mapStyle="mapbox://styles/mapbox/streets-v9"
         >
-            <Marker longitude={properties.longitude} latitude={properties.latitude} />
+            {properties.coordinates && (
+                properties.coordinates.map((coordinates) => <Marker longitude={coordinates.longitude} latitude={coordinates.latitude} />)
+            )}
         </Map>
     )
 

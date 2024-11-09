@@ -54,7 +54,7 @@ export const UpdateEvent = () => {
             <h2>Actualizar Evento</h2>
             {event && (
                 <>
-                    <MapComponent latitude={event.position.coordinates[0]} longitude={event.position.coordinates[1]} />
+                    <MapComponent coordinates={[{ latitude: event.position.coordinates[0], longitude: event.position.coordinates[1] }]} />
                     <Formik
                         initialValues={{
                             id: event.id,

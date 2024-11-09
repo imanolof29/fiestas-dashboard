@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom"
 import { useAuth } from "../providers/AuthProvider"
-import Header from "../components/Header"
+import Header from "../components/header/Header"
 import { Container } from "react-bootstrap"
 
 export const ProtectedRoute = () => {
