@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { PaginationDto } from "../../../types/pagination"
 import { PlaceDto } from "../../../types/place"
-import { listPlaces } from "../../../services/places"
+import { listPlaces, deleteAllData } from "../../../services/places"
 import { Button, Col, Row } from "react-bootstrap"
 import TableComponent from "../../../components/table/Table"
 
@@ -13,17 +13,31 @@ const ListPlaces = () => {
         return listPlaces(page, limit)
     }
 
+    const deleteData = async (): Promise<void> => {
+        await deleteAllData()
+    }
+
     return (
         <>
             <Row className="mb-3">
                 <Col xs={8}>
                     <h2>Listado de ubicaciones</h2>
                 </Col>
-                <Col xs={4} className="text-end">
-                    <Button onClick={() => {
-                        navigate("/places/import")
-                    }}>
-                        Import datos
+                <Col xs={2} className="text-end">
+                    <Button
+                        variant="primary"
+                        onClick={() => navigate("/places/import")}
+                    >
+                        Importar datos
+                    </Button>
+                </Col>
+
+                <Col xs={2} className="text-end">
+                    <Button
+                        variant="danger"
+                        onClick={deleteData}
+                    >
+                        Borrar datos
                     </Button>
                 </Col>
             </Row>

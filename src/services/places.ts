@@ -20,6 +20,14 @@ export async function getPlaceById(id: string): Promise<PlaceDto> {
     }
 }
 
+export async function deleteAllData() {
+    try {
+        await axios.delete("http://192.168.68.110:3000/places/delete-data")
+    } catch (e) {
+        throw e
+    }
+}
+
 export async function importJson(file: File) {
     const formData = new FormData()
     formData.append('file', file)
