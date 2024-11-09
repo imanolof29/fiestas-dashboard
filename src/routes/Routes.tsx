@@ -14,6 +14,7 @@ import Dashboard from "../pages/dashboard/Dashboard"
 import Profile from "../pages/profile/Profile"
 import ListPlaces from "../pages/places/list/ListPlaces"
 import ImportPlaces from "../pages/places/import/ImportPlaces"
+import UpdatePlace from "../pages/places/update/UpdatePlace"
 
 const Routes = () => {
 
@@ -73,6 +74,10 @@ const Routes = () => {
                 {
                     path: "/places/import",
                     element: <ImportPlaces />
+                },
+                {
+                    path: "/places/:id",
+                    element: <UpdatePlace />
                 }
             ]
         }

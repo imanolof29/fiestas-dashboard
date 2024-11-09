@@ -44,6 +44,15 @@ const ListPlaces = () => {
                                 .join(', ')
                             }
                         </td>
+                        <td>
+                            <Button
+                                variant="warning"
+                                className="me-2"
+                                onClick={() => navigate(`/places/${place.id}`)}
+                            >
+                                Editar
+                            </Button>
+                        </td>
                     </>
                 )}
             />
