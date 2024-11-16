@@ -1,29 +1,35 @@
 import { useState } from "react"
 import { signIn } from "../../../services/auth";
-import { useAuth } from "../../../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { Alert, Container, Form, Button } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { loginFailure, loginSuccess } from "../../../redux/authSlice";
+import { RootState } from "../../../redux/store";
 
 export const SignIn = () => {
 
-    const { setToken } = useAuth()
+    const dispatch = useDispatch()
 
     const navigate = useNavigate()
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [error, setError] = useState("")
+
+    const error = useSelector((state: RootState) => state.auth.error)
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
 
         try {
-            const { accessToken } = await signIn(email, password);
-            setToken(accessToken);
+            const response = await signIn(email, password);
+            dispatch(loginSuccess({
+                accessToken: response.accessToken,
+                refreshToken: response.refreshToken,
+                email: response.email
+            }))
             navigate("/", { replace: true });
         } catch (err) {
-            console.log(err)
-            setError("Algo fue mal")
+            dispatch(loginFailure("Algo fue mal"))
         }
     };
 

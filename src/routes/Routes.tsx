@@ -17,7 +17,6 @@ import ImportPlaces from "../pages/places/import/ImportPlaces"
 import UpdatePlace from "../pages/places/update/UpdatePlace"
 
 const Routes = () => {
-
     const adminRoutes = [
         {
             path: "/",

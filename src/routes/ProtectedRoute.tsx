@@ -1,12 +1,15 @@
 import { Navigate, Outlet } from "react-router-dom"
-import { useAuth } from "../providers/AuthProvider"
 import Header from "../components/header/Header"
 import { Container } from "react-bootstrap"
+import { useSelector } from "react-redux"
+import { RootState } from "../redux/store"
 
 export const ProtectedRoute = () => {
-    const { token } = useAuth()
+    const accessToken = useSelector((state: RootState) => state.auth.accessToken)
 
-    if (!token) {
+    console.log(accessToken ?? "NO HAY TOKEN")
+
+    if (!accessToken) {
         return <Navigate to="/signin" />
     }
 

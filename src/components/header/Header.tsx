@@ -1,15 +1,16 @@
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../providers/AuthProvider";
+import { logout } from "../../redux/authSlice";
 
 const Header = () => {
 
-    const { signOut } = useAuth()
+    const dispatch = useDispatch()
 
     const navigate = useNavigate()
 
     const handleSignOut = () => {
-        signOut()
+        dispatch(logout())
         navigate('/signIn', { replace: true })
     }
 
