@@ -22,6 +22,7 @@ const authSlice = createSlice({
             state.accessToken = action.payload.accessToken;
             state.refreshToken = action.payload.refreshToken;
             state.email = action.payload.email;
+            state.error = null
         },
         loginFailure: (state, action: PayloadAction<string>) => {
             state.error = action.payload;
