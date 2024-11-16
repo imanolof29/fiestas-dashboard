@@ -1,10 +1,11 @@
 import axios from "axios";
 import { CreateEventDto, EventDto } from "../types/event";
 import { PaginationDto } from "../types/pagination";
+import { apiUrl } from ".";
 
 export async function listEvents(page: number, limit: number): Promise<PaginationDto<EventDto>> {
     try {
-        const response = await axios.get<PaginationDto<EventDto>>(`http://192.168.68.110:3000/events/find?page=${page}&limit=${limit}`)
+        const response = await axios.get<PaginationDto<EventDto>>(`http://192.168.68.107:3000/events/find?page=${page}&limit=${limit}`)
         return response.data
     } catch (e) {
         throw e
@@ -13,7 +14,7 @@ export async function listEvents(page: number, limit: number): Promise<Paginatio
 
 export const createEvent = async (event: CreateEventDto): Promise<void> => {
     try {
-        const response = await axios.post('http://192.168.68.110:3000/events/create', event);
+        const response = await axios.post(`${apiUrl}/events/create`, event);
         return response.data;
     } catch (error) {
         if (axios.isAxiosError(error)) {
@@ -26,7 +27,7 @@ export const createEvent = async (event: CreateEventDto): Promise<void> => {
 
 export async function getEventById(id: string): Promise<EventDto> {
     try {
-        const response = await axios.get<EventDto>(`http://192.168.68.110:3000/events/pick/${id}`)
+        const response = await axios.get<EventDto>(`${apiUrl}/events/pick/${id}`)
         return response.data
     } catch (e) {
         throw e
@@ -35,7 +36,7 @@ export async function getEventById(id: string): Promise<EventDto> {
 
 export async function updateEvent(event: EventDto): Promise<void> {
     try {
-        await axios.put(`http://192.168.68.110:3000/events/update/${event.id}`, {
+        await axios.put(`${apiUrl}/events/update/${event.id}`, {
             name: event.name,
             description: event.description,
             price: event.price,
@@ -50,7 +51,7 @@ export async function updateEvent(event: EventDto): Promise<void> {
 
 export async function deleteEvent(id: string): Promise<void> {
     try {
-        await axios.delete(`http://192.168.68.110:3000/events/delete/${id}`)
+        await axios.delete(`${apiUrl}/events/delete/${id}`)
     } catch (e) {
         console.log(e)
         throw e
