@@ -5,6 +5,7 @@ import { Alert, Container, Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { loginFailure, loginSuccess } from "../../../redux/authSlice";
 import { RootState } from "../../../redux/store";
+import axios from "axios";
 
 export const SignIn = () => {
 
@@ -28,8 +29,9 @@ export const SignIn = () => {
                 email: response.email
             }))
             navigate("/", { replace: true });
-        } catch (err) {
-            dispatch(loginFailure("Algo fue mal"))
+        } catch (e) {
+            const errorMessage = axios.isAxiosError(e) ? e.response?.data?.message || "Error desconocido" : "Algo salió mal";
+            dispatch(loginFailure(errorMessage));
         }
     };
 
