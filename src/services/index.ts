@@ -1,7 +1,7 @@
 import axios from "axios"
 import { store } from "../redux/store"
 
-export const apiUrl = "http://192.168.68.107:3000"
+export const apiUrl = "http://192.168.68.113:3000"
 
 const axiosInstance = axios.create({
     baseURL: apiUrl,

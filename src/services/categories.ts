@@ -1,11 +1,11 @@
 import axios from "axios";
 import { CategoryDto, CreateCategoryDto } from "../types/category";
 import { PaginationDto } from "../types/pagination";
-import axiosInstance, { apiUrl } from ".";
+import axiosInstance from ".";
 
 export async function listCategories(page: number, limit: number): Promise<PaginationDto<CategoryDto>> {
     try {
-        const response = await axiosInstance.get<PaginationDto<CategoryDto>>(`http://192.168.68.107:3000/categories/find?page=${page}&limit=${limit}`)
+        const response = await axiosInstance.get<PaginationDto<CategoryDto>>(`/categories/find?page=${page}&limit=${limit}`)
         return response.data
     } catch (e) {
         throw e
@@ -14,7 +14,7 @@ export async function listCategories(page: number, limit: number): Promise<Pagin
 
 export async function createCategory(category: CreateCategoryDto) {
     try {
-        const response = await axiosInstance.post(`${apiUrl}/categories/create`, category);
+        const response = await axiosInstance.post(`/categories/create`, category);
         return response.data;
     } catch (error) {
         if (axios.isAxiosError(error)) {
@@ -27,7 +27,7 @@ export async function createCategory(category: CreateCategoryDto) {
 
 export async function getCategoryById(id: string): Promise<CategoryDto> {
     try {
-        const response = await axiosInstance.get<CategoryDto>(`${apiUrl}/categories/pick/${id}`)
+        const response = await axiosInstance.get<CategoryDto>(`/categories/pick/${id}`)
         return response.data
     } catch (e) {
         throw e
@@ -36,7 +36,7 @@ export async function getCategoryById(id: string): Promise<CategoryDto> {
 
 export async function updateCategory(category: any): Promise<void> {
     try {
-        await axiosInstance.put(`${apiUrl}/categories/update/${category.id}`, {
+        await axiosInstance.put(`/categories/update/${category.id}`, {
             name: category.name,
         })
     } catch (e) {
@@ -46,7 +46,7 @@ export async function updateCategory(category: any): Promise<void> {
 
 export async function deleteCategory(id: string): Promise<void> {
     try {
-        await axiosInstance.delete(`${apiUrl}/categories/delete/${id}`)
+        await axiosInstance.delete(`/categories/delete/${id}`)
     } catch (e) {
         throw e
     }
