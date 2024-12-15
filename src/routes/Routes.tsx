@@ -15,8 +15,14 @@ import Profile from "../pages/profile/Profile"
 import ListPlaces from "../pages/places/list/ListPlaces"
 import ImportPlaces from "../pages/places/import/ImportPlaces"
 import UpdatePlace from "../pages/places/update/UpdatePlace"
+import { useSelector } from "react-redux"
+import { RootState } from "../redux/store"
+import PermissionRoute from "./PermissionRoute"
 
 const Routes = () => {
+
+    const { permissions } = useSelector((state: RootState) => state.auth);
+
     const adminRoutes = [
         {
             path: "/",
@@ -28,39 +34,102 @@ const Routes = () => {
                 },
                 {
                     path: "/events",
-                    element: <ListEvents />
+                    element: (
+                        <PermissionRoute
+                            element={<ListEvents />}
+                            requiredPermissions={["list"]}
+                            resource="events"
+                            permissions={permissions}
+                        />
+                    )
                 },
                 {
                     path: "/events/:id",
-                    element: <UpdateEvent />
+                    element: (
+                        <PermissionRoute
+                            element={<UpdateEvent />}
+                            requiredPermissions={["edit"]}
+                            resource="events"
+                            permissions={permissions}
+                        />
+                    )
                 },
                 {
                     path: "/events/create",
-                    element: <CreateEvent />
+                    element: (
+                        <PermissionRoute
+                            element={<CreateEvent />}
+                            requiredPermissions={["add"]}
+                            resource="events"
+                            permissions={permissions}
+                        />
+                    )
                 },
                 {
                     path: "/categories",
-                    element: <ListCategories />
+                    element: (
+                        <PermissionRoute
+                            element={<ListCategories />}
+                            requiredPermissions={["list"]}
+                            resource="categories"
+                            permissions={permissions}
+                        />
+                    )
                 },
                 {
                     path: "/categories/:id",
-                    element: <UpdateCategory />
+                    element: (
+                        <PermissionRoute
+                            element={<UpdateCategory />}
+                            requiredPermissions={["edit"]}
+                            resource="categories"
+                            permissions={permissions}
+                        />
+                    )
                 },
                 {
                     path: "/categories/create",
-                    element: <CreateCategory />
+                    element: (
+                        <PermissionRoute
+                            element={<CreateCategory />}
+                            requiredPermissions={["add"]}
+                            resource="categories"
+                            permissions={permissions}
+                        />
+                    )
                 },
                 {
                     path: "/users",
-                    element: <ListUsers />
+                    element: (
+                        <PermissionRoute
+                            element={<ListUsers />}
+                            requiredPermissions={["list"]}
+                            resource="users"
+                            permissions={permissions}
+                        />
+                    )
                 },
                 {
                     path: "/users/create",
-                    element: <CreateUser />
+                    element: (
+                        <PermissionRoute
+                            element={<CreateUser />}
+                            requiredPermissions={["add"]}
+                            resource="users"
+                            permissions={permissions}
+                        />
+                    )
                 },
                 {
                     path: "/users/:id",
-                    element: <UpdateUser />
+                    element: (
+                        <PermissionRoute
+                            element={<UpdateUser />}
+                            requiredPermissions={["edit"]}
+                            resource="users"
+                            permissions={permissions}
+                        />
+                    )
                 },
                 {
                     path: "/profile",
@@ -68,32 +137,54 @@ const Routes = () => {
                 },
                 {
                     path: "/places",
-                    element: <ListPlaces />
+                    element: (
+                        <PermissionRoute
+                            element={<ListPlaces />}
+                            requiredPermissions={["list"]}
+                            resource="places"
+                            permissions={permissions}
+                        />
+                    )
                 },
                 {
                     path: "/places/import",
-                    element: <ImportPlaces />
+                    element: (
+                        <PermissionRoute
+                            element={<ImportPlaces />}
+                            requiredPermissions={["add"]}
+                            resource="places"
+                            permissions={permissions}
+                        />
+                    )
                 },
                 {
                     path: "/places/:id",
-                    element: <UpdatePlace />
+                    element: (
+                        <PermissionRoute
+                            element={<UpdatePlace />}
+                            requiredPermissions={["edit"]}
+                            resource="places"
+                            permissions={permissions}
+                        />
+                    )
                 }
             ]
         }
-    ]
+    ];
+
     const authRoutes = [
         {
             path: "/signin",
             element: <SignIn />
         }
-    ]
+    ];
 
     const router = createBrowserRouter([
         ...adminRoutes,
         ...authRoutes
-    ])
+    ]);
 
-    return <RouterProvider router={router} />
+    return <RouterProvider router={router} />;
 
 }
 

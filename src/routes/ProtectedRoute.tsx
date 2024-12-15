@@ -7,8 +7,6 @@ import { RootState } from "../redux/store"
 export const ProtectedRoute = () => {
     const accessToken = useSelector((state: RootState) => state.auth.accessToken)
 
-    console.log(accessToken ?? "NO HAY TOKEN")
-
     if (!accessToken) {
         return <Navigate to="/signin" />
     }
