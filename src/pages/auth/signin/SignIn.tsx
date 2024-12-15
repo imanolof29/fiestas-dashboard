@@ -26,7 +26,8 @@ export const SignIn = () => {
             dispatch(loginSuccess({
                 accessToken: response.accessToken,
                 refreshToken: response.refreshToken,
-                email: response.email
+                email: response.email,
+                permissions: response.permissions
             }))
             navigate("/", { replace: true });
         } catch (e) {

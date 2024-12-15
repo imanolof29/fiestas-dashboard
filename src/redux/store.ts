@@ -15,7 +15,7 @@ import {
 const persistConfig = {
     key: 'auth',
     storage,
-    whitelist: ['accessToken', 'refreshToken', 'email']
+    whitelist: ['accessToken', 'refreshToken', 'email', 'permissions']
 }
 
 const persistedAuthReducer = persistReducer(persistConfig, authReducer)
