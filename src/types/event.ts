@@ -1,4 +1,3 @@
-import { Position } from "./position";
 
 export interface EventDto {
     id: string;
@@ -8,8 +7,6 @@ export interface EventDto {
     price?: number;
     ticketLimit?: number;
     ticketsSold: number;
-    categoryIds: string[];
-    position: Position;
 }
 
 export interface CreateEventDto {
