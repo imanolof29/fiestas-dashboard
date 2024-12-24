@@ -64,10 +64,14 @@ export const ListEvents = () => {
                                 Editar
                             </Button>
                             <Button
+                                className="me-2"
                                 variant="danger"
                                 onClick={() => handleShowDeleteModal(event)}
                             >
                                 Borrar
+                            </Button>
+                            <Button className="me-2" variant="success" onClick={() => navigate(`/events/${event.id}/purchase`)}>
+                                Comprar
                             </Button>
                         </td>
                     </>

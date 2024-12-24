@@ -18,6 +18,7 @@ import UpdatePlace from "../pages/places/update/UpdatePlace"
 import { ListOrganizations } from "../pages/organizations/list/ListOrganizations"
 import { CreateOrganization } from "../pages/organizations/create/CreateOrganization"
 import { UpdateOrganization } from "../pages/organizations/update/UpdateOrganization"
+import { PurchaseEventTicket } from "../pages/events/purchase/PurchaseEventTicket"
 
 const Routes = () => {
 
@@ -39,6 +40,10 @@ const Routes = () => {
                 {
                     path: "/events/:id",
                     element: <UpdateEvent />
+                },
+                {
+                    path: "/events/:id/purchase",
+                    element: <PurchaseEventTicket />
                 },
                 {
                     path: "/events/create",
