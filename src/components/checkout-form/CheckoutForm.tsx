@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import axiosInstance from '../../services';
+import { Button, Form } from 'react-bootstrap';
 
 interface PaymentFormProps {
     amount: number;
@@ -61,11 +62,14 @@ export const CheckoutForm: React.FC<PaymentFormProps> = ({ amount, eventId }) =>
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <CardElement />
-            <button type="submit" disabled={isProcessing || !stripe}>
+        <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3">
+                <Form.Label>Detalles de la tarjeta</Form.Label>
+                <CardElement options={{ style: { base: { fontSize: '16px' } } }} className="form-control" />
+            </Form.Group>
+            <Button variant="primary" type="submit" disabled={isProcessing || !stripe}>
                 {isProcessing ? 'Procesando...' : 'Pagar'}
-            </button>
-        </form>
+            </Button>
+        </Form>
     );
 };
