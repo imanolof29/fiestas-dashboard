@@ -5,7 +5,6 @@ import { EventDto } from '../../../types/event';
 import * as Yup from 'yup';
 import { Form, Button, Spinner, Alert, Row, Col } from 'react-bootstrap';
 import { getEventById, updateEvent } from '../../../services/events';
-import MapComponent from '../../../components/map/Map';
 
 
 export const UpdateEvent = () => {
@@ -54,7 +53,6 @@ export const UpdateEvent = () => {
             <h2>Actualizar Evento</h2>
             {event && (
                 <>
-                    <MapComponent coordinates={[{ latitude: event.position.coordinates[0], longitude: event.position.coordinates[1] }]} />
                     <Formik
                         initialValues={{
                             id: event.id,
@@ -64,8 +62,6 @@ export const UpdateEvent = () => {
                             price: event.price ?? 0,
                             ticketLimit: event.ticketLimit ?? 0,
                             ticketsSold: event.ticketsSold ?? 0,
-                            categoryIds: event.categoryIds,
-                            position: event.position
                         }}
                         validationSchema={validationSchema}
                         onSubmit={handleSubmit}

@@ -28,6 +28,9 @@ const Header = () => {
                         <Nav.Link as={Link} to="/events">
                             Eventos
                         </Nav.Link>
+                        <Nav.Link as={Link} to="/organizations">
+                            Organizaciones
+                        </Nav.Link>
                         <Nav.Link as={Link} to="/categories">
                             Categorias
                         </Nav.Link>

@@ -1,35 +1,34 @@
-import { useState } from "react";
-import { deleteEvent, listEvents } from "../../../services/events";
-import { Button, Col, Modal, Row } from "react-bootstrap";
-import { EventDto } from "../../../types/event";
 import { useNavigate } from "react-router-dom";
-import TableComponent from "../../../components/table/Table";
+import { OrganizationDto } from "../../../types/organization";
 import { PaginationDto } from "../../../types/pagination";
+import { useState } from "react";
+import { Button, Col, Modal, Row } from "react-bootstrap";
+import TableComponent from "../../../components/table/Table";
+import { deleteOrganization, listOrganizations } from "../../../services/organizations";
 
-export const ListEvents = () => {
-
+export const ListOrganizations = () => {
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
-    const [eventToDelete, setEventToDelete] = useState<EventDto | null>(null);
+    const [organizationToDelete, setOrganizationToDelete] = useState<OrganizationDto | null>(null);
 
     const navigate = useNavigate()
 
-    const handleDelete = async (eventId: string) => {
-        await deleteEvent(eventId)
+    const handleDelete = async (organizationId: string) => {
+        await deleteOrganization(organizationId)
         setShowDeleteModal(false);
     };
 
-    const handleShowDeleteModal = (event: EventDto) => {
-        setEventToDelete(event);
+    const handleShowDeleteModal = (organization: OrganizationDto) => {
+        setOrganizationToDelete(organization);
         setShowDeleteModal(true);
     };
 
     const handleCloseDeleteModal = () => {
         setShowDeleteModal(false);
-        setEventToDelete(null);
+        setOrganizationToDelete(null);
     };
 
-    const getEvents = async (page: number, limit: number): Promise<PaginationDto<EventDto>> => {
-        return listEvents(page, limit)
+    const getOrganizations = async (page: number, limit: number): Promise<PaginationDto<OrganizationDto>> => {
+        return listOrganizations(page, limit)
     }
 
     return (
@@ -40,38 +39,32 @@ export const ListEvents = () => {
                 </Col>
                 <Col xs={4} className="text-end">
                     <Button onClick={() => {
-                        navigate("/events/create")
+                        navigate("/organizations/create")
                     }}>
                         Crear
                     </Button>
                 </Col>
             </Row>
-            <TableComponent<EventDto>
-                columns={['Nombre', 'Fecha de creación', 'Precio', 'Ventas', 'Acciones']}
-                fetchData={getEvents}
-                renderRow={(event) => (
+            <TableComponent<OrganizationDto>
+                columns={['Nombre', 'Acciones']}
+                fetchData={getOrganizations}
+                renderRow={(organization) => (
                     <>
-                        <td>{event.name}</td>
-                        <td>{new Date(event.created).toLocaleDateString()}</td>
-                        <td>{event.price ? `${event.price}€` : 'Gratuito'}</td>
-                        <td>{event.ticketLimit ?? 0}</td>
+                        <td>{organization.name}</td>
+                        <td>{new Date(organization.created).toLocaleDateString()}</td>
                         <td>
                             <Button
                                 variant="warning"
                                 className="me-2"
-                                onClick={() => navigate(`/events/${event.id}`)}
+                                onClick={() => navigate(`/organizations/${organization.id}`)}
                             >
                                 Editar
                             </Button>
                             <Button
-                                className="me-2"
                                 variant="danger"
-                                onClick={() => handleShowDeleteModal(event)}
+                                onClick={() => handleShowDeleteModal(organization)}
                             >
                                 Borrar
-                            </Button>
-                            <Button className="me-2" variant="success" onClick={() => navigate(`/events/${event.id}/purchase`)}>
-                                Comprar
                             </Button>
                         </td>
                     </>
@@ -82,17 +75,18 @@ export const ListEvents = () => {
                     <Modal.Title>Confirmar Borrado</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    ¿Estás seguro de que deseas eliminar el evento "{eventToDelete?.name}"?
+                    ¿Estás seguro de que deseas eliminar el evento "{organizationToDelete?.name}"?
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCloseDeleteModal}>
                         Cancelar
                     </Button>
-                    <Button variant="danger" onClick={() => eventToDelete && handleDelete(eventToDelete.id)}>
+                    <Button variant="danger" onClick={() => organizationToDelete && handleDelete(organizationToDelete.id)}>
                         Borrar
                     </Button>
                 </Modal.Footer>
             </Modal>
         </>
     )
+
 }
