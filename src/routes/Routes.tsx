@@ -19,6 +19,7 @@ import { ListOrganizations } from "../pages/organizations/list/ListOrganizations
 import { CreateOrganization } from "../pages/organizations/create/CreateOrganization"
 import { UpdateOrganization } from "../pages/organizations/update/UpdateOrganization"
 import { PurchaseEventTicket } from "../pages/events/purchase/PurchaseEventTicket"
+import { SignUp } from "../pages/auth/signup/SIgnUp"
 
 const Routes = () => {
 
@@ -109,6 +110,10 @@ const Routes = () => {
         {
             path: "/signin",
             element: <SignIn />
+        },
+        {
+            path: "/signup",
+            element: <SignUp />
         }
     ];
 

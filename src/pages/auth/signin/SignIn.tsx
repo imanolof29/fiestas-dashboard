@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { signIn } from "../../../services/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Alert, Container, Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { loginFailure, loginSuccess } from "../../../redux/authSlice";
@@ -67,6 +67,10 @@ export const SignIn = () => {
                     Iniciar Sesión
                 </Button>
             </Form>
+            <div className="mt-3 text-center">
+                <span>¿No tienes cuenta? </span>
+                <Link to="/signup">Registrate</Link>
+            </div>
         </Container>
     )
 }
