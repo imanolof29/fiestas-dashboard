@@ -11,7 +11,7 @@ export async function signIn(email: string, password: string) {
 
 export async function signUp(firstName: string, lastName: string, username: string, email: string, password: string) {
     try {
-        const response = await axiosInstance.post(`/auth/signup`, { firstName, lastName, username, email, password })
+        const response = await axiosInstance.post(`/auth/create`, { firstName, lastName, username, email, password })
         return response.data
     } catch (e) {
         throw e

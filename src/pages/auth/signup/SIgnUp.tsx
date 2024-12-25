@@ -45,7 +45,7 @@ export const SignUp = () => {
             {error && <Alert variant="danger">{error}</Alert>}
             <Form onSubmit={handleLogin}>
                 <Form.Group controlId="formFirstName" className="mb-3">
-                    <Form.Label>Email</Form.Label>
+                    <Form.Label>Nombre</Form.Label>
                     <Form.Control
                         type="text"
                         placeholder="Ingresa tu nombre"
