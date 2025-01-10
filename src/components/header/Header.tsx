@@ -1,56 +1,35 @@
-import { Button, Container, Nav, Navbar } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { logout } from "../../redux/authSlice";
+import {
+    CircleUser
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
-const Header = () => {
-
-    const dispatch = useDispatch()
-
-    const navigate = useNavigate()
-
-    const handleSignOut = () => {
-        dispatch(logout())
-        navigate('/signIn', { replace: true })
-    }
-
+export default function Header() {
     return (
-        <Navbar bg="dark" variant="dark" expand="lg">
-            <Container>
-                <Navbar.Brand as={Link} to="/">
-                    Fiestas
-                </Navbar.Brand>
-
-                <Navbar.Toggle aria-controls="navbar-nav" />
-
-                <Navbar.Collapse id="navbar-nav">
-                    <Nav className="me-auto">
-                        <Nav.Link as={Link} to="/events">
-                            Eventos
-                        </Nav.Link>
-                        <Nav.Link as={Link} to="/organizations">
-                            Organizaciones
-                        </Nav.Link>
-                        <Nav.Link as={Link} to="/categories">
-                            Categorias
-                        </Nav.Link>
-                        <Nav.Link as={Link} to="/users">
-                            Usuarios
-                        </Nav.Link>
-                        <Nav.Link as={Link} to="/places">
-                            Ubicaciones
-                        </Nav.Link>
-                    </Nav>
-
-                    <Nav>
-                        <Button variant="outline-light" onClick={handleSignOut}>
-                            Cerrar sesion
-                        </Button>
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>
-    );
+        <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button variant="secondary" size="icon" className="rounded-full">
+                        <CircleUser className="h-5 w-5" />
+                        <span className="sr-only">Toggle user menu</span>
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>Settings</DropdownMenuItem>
+                    <DropdownMenuItem>Support</DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>Logout</DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+        </header>
+    )
 }
-
-export default Header

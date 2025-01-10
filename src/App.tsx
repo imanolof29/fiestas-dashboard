@@ -7,12 +7,9 @@ const stripe = loadStripe("pk_test_51P0V1vRvg7g5YeCB57u2WYZw6xhrUH57ZQnzyJXJYWTo
 
 function App() {
   return (
-    // <Elements stripe={stripe}>
-    //   <Routes />
-    // </Elements>
-    <h1 className="text-3xl font-bold underline">
-      Hello world
-    </h1>
+    <Elements stripe={stripe}>
+      <Routes />
+    </Elements>
   )
 }
 
