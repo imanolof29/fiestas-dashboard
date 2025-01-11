@@ -1,28 +1,44 @@
-import { useState } from "react"
-import { signIn } from "../../../services/auth";
-import { Link, useNavigate } from "react-router-dom";
-import { Alert, Container, Form, Button } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { loginFailure, loginSuccess } from "../../../redux/authSlice";
-import { RootState } from "../../../redux/store";
+import { Card, CardContent, CardDescription, CardTitle, CardHeader } from "@/components/ui/card"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Form, FormField, FormItem, FormControl, FormLabel } from "@/components/ui/form";
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { loginFailure, loginSuccess } from "@/redux/authSlice";
+import { signIn } from "@/services/auth";
 import axios from "axios";
 
+
+export const formSchema = z.object({
+    email: z.string().min(2, {
+        message: "El email es demasiado corto"
+    }),
+    password: z.string().min(5, {
+        message: "La contraseña es demasiado corta"
+    })
+})
+
 export const SignIn = () => {
+
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            email: "",
+            password: ""
+        }
+    })
 
     const dispatch = useDispatch()
 
     const navigate = useNavigate()
 
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
 
-    const error = useSelector((state: RootState) => state.auth.error)
-
-    const handleLogin = async (e: React.FormEvent) => {
-        e.preventDefault();
-
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            const response = await signIn(email, password);
+            const response = await signIn(values.email, values.password);
             dispatch(loginSuccess({
                 accessToken: response.accessToken,
                 refreshToken: response.refreshToken,
@@ -34,43 +50,47 @@ export const SignIn = () => {
             const errorMessage = axios.isAxiosError(e) ? e.response?.data?.message || "Error desconocido" : "Algo salió mal";
             dispatch(loginFailure(errorMessage));
         }
-    };
+    }
 
     return (
-        <Container className="mt-5" style={{ maxWidth: '400px' }}>
-            <h2 className="text-center mb-4">Iniciar Sesión</h2>
-            {error && <Alert variant="danger">{error}</Alert>}
-            <Form onSubmit={handleLogin}>
-                <Form.Group controlId="formEmail" className="mb-3">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control
-                        type="email"
-                        placeholder="Ingresa tu email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </Form.Group>
-
-                <Form.Group controlId="formPassword" className="mb-3">
-                    <Form.Label>Contraseña</Form.Label>
-                    <Form.Control
-                        type="password"
-                        placeholder="Ingresa tu contraseña"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </Form.Group>
-
-                <Button variant="primary" type="submit" className="w-100">
-                    Iniciar Sesión
-                </Button>
-            </Form>
-            <div className="mt-3 text-center">
-                <span>¿No tienes cuenta? </span>
-                <Link to="/signup">Registrate</Link>
-            </div>
-        </Container>
+        <div className="flex h-screen w-full items-center justify-center px-4">
+            <Card className="mx-auto max-w-sm">
+                <CardHeader>
+                    <CardTitle className="text-2xl">Iniciar sesion</CardTitle>
+                    <CardDescription>Introduce tus credenciales para iniciar sesion</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Form {...form}>
+                        <form onSubmit={form.handleSubmit(onSubmit)}>
+                            <FormField
+                                control={form.control}
+                                name="email"
+                                render={({ field }) => (
+                                    <FormItem className="my-2">
+                                        <FormLabel>Email</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Email" {...field} type="email" />
+                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="password"
+                                render={({ field }) => (
+                                    <FormItem className="my-2">
+                                        <FormLabel>Contraseña</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Contraseña" {...field} type="password" />
+                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
+                            <Button className="w-full my-2">Iniciar sesion</Button>
+                        </form>
+                    </Form>
+                </CardContent>
+            </Card>
+        </div>
     )
 }
